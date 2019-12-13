@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from 'axios'
+import { Route } from 'react-router-dom';
 
-import smurfContext from '../smurfContext/smurfContext'
+import smurfContext from '../smurfContext/smurfContext';
+import smurfButton from './smurfButton'
 
 
 
@@ -13,22 +15,30 @@ class App extends Component {
     smurfsText: ''
   };
 
+  
   componentDidMount(){
     axios.get('http://localhost:3333/smurfs').then(response => {
       this.setState({smurfs: response.data})
     })
     window.addEventListener('resize', this.handleResize);
+
+
+
+
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
 
+
+
+  
   render() {
     return (
       <div className="App">
         <h1>SMURFS! 2.0 W/ Redux</h1>
         <div>Welcome to your state management version of Smurfs!</div>
-        <smurfContext.Provider value={state}>
+        
         <div className="players">
         {this.state.smurfs.map(smurf=>(
           <div>
@@ -38,6 +48,8 @@ class App extends Component {
           </div>
         ))}
       </div>
+      <smurfContext.Provider value={this.state}>
+      <Route exact path="/" component={smurfButton} />
       </smurfContext.Provider>
       </div>
     );
