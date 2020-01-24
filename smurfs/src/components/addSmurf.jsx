@@ -75,7 +75,6 @@ export function AddSmurf() {
       age: 0
     });
   };
-
   return (
     <form onSubmit={submitForm}>
       <input
@@ -86,12 +85,12 @@ export function AddSmurf() {
         onChange={handleChange}
       />
       <input
-        type="text"
+        type="number"
         name="height"
         placeholder="Height"
         onChange={handleChange}
       />
-      <input type="text" name="age" placeholder="Age" onChange={handleChange} />
+      <input type="number" name="age" placeholder="Age" onChange={handleChange} />
       <button type="submit">Add Smurf! or wehatever you want...</button>
     </form>
   );
@@ -112,15 +111,16 @@ export const Display = () => {
     <div>
       {store.smurfs.map(smurf => {
         return (
-          <div key={smurf.id}>
+          <div key={smurf.id} className='smurfDiv'>
             <p>{smurf.name}</p>
             <p>{smurf.height}</p>
             <p>{smurf.age}</p>
             <p>{smurf.id}</p>
-            <button onClick={() => dispatch(removeSmurf(smurf.id))}>X</button>
+            <button onClick={() => dispatch(removeSmurf(smurf.id))}>Remove</button>
           </div>
         );
       })}
     </div>
   );
 };
+
